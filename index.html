@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Elite English Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Tailwind (CDN) -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Lucide Icons (CDN) -->
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+
+  <style>
+    /* 简单的遮罩 & 弹窗样式 */
+    .modal-mask {
+      background: rgba(0,0,0,.6);
+    }
+    .modal-show {
+      display: flex;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+
+  <!-- ===== Header ===== -->
+  <header class="bg-white shadow-sm border-b">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-4 w-full">
+        <button class="md:hidden" aria-label="Menu"><i data-lucide="menu" class="w-5 h-5"></i></button>
+
+        <!-- search -->
+        <div class="relative flex-1 max-w-md">
+          <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+          <input
+            type="text"
+            placeholder="Search courses..."
+            class="pl-10 w-full py-2 bg-gray-100 rounded-md focus:ring-0 focus:outline-none"
+          >
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <button aria-label="Profile"><i data-lucide="user" class="w-5 h-5"></i></button>
+        <button aria-label="More"><i data-lucide="menu" class="w-5 h-5"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Studio Profile ===== -->
+  <section class="bg-white border-b">
+    <div class="max-w-6xl mx-auto px-4 py-6 flex items-center justify-between">
+      <div class="flex items-center space-x-4">
+        <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">ES</div>
+        <div>
+          <h1 class="text-xl font-bold">Elite English Studio</h1>
+          <div class="flex space-x-4 text-gray-600 text-sm mt-1">
+            <span class="flex items-center"><i data-lucide="users" class="w-4 h-4 mr-1"></i>2.8K students</span>
+            <span class="flex items-center"><i data-lucide="star" class="w-4 h-4 mr-1 text-yellow-500"></i>4.9 rating</span>
+          </div>
+        </div>
+      </div>
+      <!-- Follow button -->
+      <button class="js-show-qr flex items-center bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md">
+        <i data-lucide="plus" class="w-4 h-4 mr-1"></i>Follow
+      </button>
+    </div>
+
+    <!-- quick stats -->
+    <div class="max-w-6xl mx-auto px-4 pb-6 flex space-x-8 text-sm">
+      <div class="flex items-center text-red-500"><i data-lucide="star" class="w-4 h-4 mr-1"></i>Recent 6 months:&nbsp;<span class="font-semibold">1.2K</span>&nbsp;5-star reviews</div>
+      <div class="flex items-center text-red-500"><i data-lucide="book-open" class="w-4 h-4 mr-1"></i>Hot courses:&nbsp;<span class="font-semibold">15</span>&nbsp;active</div>
+      <div class="flex items-center text-red-500"><i data-lucide="award" class="w-4 h-4 mr-1"></i>Certified instructors</div>
+    </div>
+  </section>
+
+  <!-- ===== Tabs (静态标签，点击不切换) ===== -->
+  <nav class="bg-white border-b">
+    <div class="max-w-6xl mx-auto px-4 flex space-x-8">
+      <span class="py-4 px-2 border-b-2 border-red-500 text-red-600 text-sm font-medium">Courses</span>
+      <span class="py-4 px-2 border-b-2 border-transparent text-gray-500 text-sm font-medium">Categories</span>
+    </div>
+  </nav>
+
+  <!-- ===== Filters (静态) ===== -->
+  <div class="bg-white border-b">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center space-x-6">
+      <span class="text-red-600 text-sm font-medium">Comprehensive</span>
+      <span class="text-gray-600 text-sm">Most Popular</span>
+      <span class="text-gray-600 text-sm">Newest</span>
+      <span class="text-gray-600 text-sm">Price ↑</span>
+      <span class="ml-auto md:hidden"><i data-lucide="menu" class="w-4 h-4"></i></span>
+    </div>
+  </div>
+
+  <!-- ===== Course Grid ===== -->
+  <main class="max-w-6xl mx-auto px-4 py-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- card template (复制 4 次) -->
+    <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow">
+      <div class="relative">
+        <img src="https://placehold.co/600x200?text=120×200" alt="IELTS Speaking Intensive" class="w-full h-32 object-cover">
+        <span class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">BESTSELLER</span>
+      </div>
+      <div class="p-4">
+        <h3 class="font-semibold mb-1">IELTS Speaking Intensive</h3>
+        <p class="text-sm text-gray-600 mb-2">1-on-1 Premium Course</p>
+
+        <div class="flex justify-between items-center mb-2">
+          <div class="flex items-center space-x-2">
+            <span class="text-lg font-bold text-red-600">$299</span>
+            <span class="text-sm text-gray-500 line-through">$399</span>
+          </div>
+          <div class="flex items-center text-sm text-gray-600">
+            <i data-lucide="clock" class="w-4 h-4 mr-1"></i>20 hours
+          </div>
+        </div>
+
+        <div class="flex justify-between text-sm text-gray-600">
+          <span>500+ enrolled</span>
+          <span class="flex items-center"><i data-lucide="star" class="w-4 h-4 text-yellow-500 mr-1"></i>4.9 (128)</span>
+        </div>
+
+        <button class="js-show-qr w-full mt-3 bg-red-500 hover:bg-red-600 text-white py-2 rounded-md">Enroll Now</button>
+      </div>
+    </div>
+
+    <!-- 其他 3 张卡片（示例快速复制粘贴） -->
+    <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow">
+      <div class="relative">
+        <img src="https://placehold.co/600x200?text=120×200" alt="Business English Mastery" class="w-full h-32 object-cover">
+        <span class="absolute top-2 left-2 bg-orange-500 text-white text-xs px-2 py-1 rounded">POPULAR</span>
+      </div>
+      <div class="p-4">
+        <h3 class="font-semibold mb-1">Business English Mastery</h3>
+        <p class="text-sm text-gray-600 mb-2">Professional Communication</p>
+        <div class="flex justify-between items-center mb-2">
+          <div class="flex items-center space-x-2">
+            <span class="text-lg font-bold text-red-600">$199</span>
+            <span class="text-sm text-gray-500 line-through">$299</span>
+          </div>
+          <div class="flex items-center text-sm text-gray-600"><i data-lucide="clock" class="w-4 h-4 mr-1"></i>15 hours</div>
+        </div>
+        <div class="flex justify-between text-sm text-gray-600">
+          <span>300+ enrolled</span>
+          <span class="flex items-center"><i data-lucide="star" class="w-4 h-4 text-yellow-500 mr-1"></i>4.8 (89)</span>
+        </div>
+        <button class="js-show-qr w-full mt-3 bg-red-500 hover:bg-red-600 text-white py-2 rounded-md">Enroll Now</button>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow">
+      <div class="relative">
+        <img src="https://placehold.co/600x200?text=120×200" alt="Grammar Foundation" class="w-full h-32 object-cover">
+        <span class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">BEGINNER</span>
+      </div>
+      <div class="p-4">
+        <h3 class="font-semibold mb-1">Grammar Foundation</h3>
+        <p class="text-sm text-gray-600 mb-2">Essential English Grammar</p>
+        <div class="flex justify-between items-center mb-2">
+          <div class="flex items-center space-x-2">
+            <span class="text-lg font-bold text-red-600">$99</span>
+            <span class="text-sm text-gray-500 line-through">$149</span>
+          </div>
+          <div class="flex items-center text-sm text-gray-600"><i data-lucide="clock" class="w-4 h-4 mr-1"></i>12 hours</div>
+        </div>
+        <div class="flex justify-between text-sm text-gray-600">
+          <span>800+ enrolled</span>
+          <span class="flex items-center"><i data-lucide="star" class="w-4 h-4 text-yellow-500 mr-1"></i>4.7 (234)</span>
+        </div>
+        <button class="js-show-qr w-full mt-3 bg-red-500 hover:bg-red-600 text-white py-2 rounded-md">Enroll Now</button>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow">
+      <div class="relative">
+        <img src="https://placehold.co/600x200?text=120×200" alt="Conversation Club" class="w-full h-32 object-cover">
+        <span class="absolute top-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded">GROUP</span>
+      </div>
+      <div class="p-4">
+        <h3 class="font-semibold mb-1">Conversation Club</h3>
+        <p class="text-sm text-gray-600 mb-2">Weekly Speaking Practice</p>
+        <div class="flex justify-between items-center mb-2">
+          <div class="flex items-center space-x-2">
+            <span class="text-lg font-bold text-red-600">$79</span>
+            <span class="text-sm text-gray-500 line-through">$99</span>
+          </div>
+          <div class="flex items-center text-sm text-gray-600"><i data-lucide="clock" class="w-4 h-4 mr-1"></i>Ongoing</div>
+        </div>
+        <div class="flex justify-between text-sm text-gray-600">
+          <span>1000+ enrolled</span>
+          <span class="flex items-center"><i data-lucide="star" class="w-4 h-4 text-yellow-500 mr-1"></i>4.9 (456)</span>
+        </div>
+        <button class="js-show-qr w-full mt-3 bg-red-500 hover:bg-red-600 text-white py-2 rounded-md">Enroll Now</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== Bottom Nav (Mobile) ===== -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t md:hidden">
+    <div class="flex justify-around py-2">
+      <a href="#" class="flex flex-col items-center text-gray-600">
+        <i data-lucide="home" class="w-5 h-5"></i><span class="text-xs mt-1">Home</span>
+      </a>
+      <a href="#" class="flex flex-col items-center text-red-500">
+        <i data-lucide="book-open" class="w-5 h-5"></i><span class="text-xs mt-1">Courses</span>
+      </a>
+      <a href="#" class="flex flex-col items-center text-gray-600">
+        <i data-lucide="message-circle" class="w-5 h-5"></i><span class="text-xs mt-1">Support</span>
+      </a>
+    </div>
+  </nav>
+  <!-- 占位，避免内容被底部导航遮挡 -->
+  <div class="h-16 md:hidden"></div>
+
+  <!-- ===== QR Modal (隐藏状态) ===== -->
+  <div id="qrModal" class="fixed inset-0 hidden items-center justify-center modal-mask z-50">
+    <div class="bg-white rounded-xl p-6 max-w-xs text-center relative">
+      <button id="qrClose" class="absolute top-2 right-2 text-gray-500" aria-label="Close">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <h2 class="text-lg font-semibold mb-4">扫描微信二维码报名 / 关注</h2>
+      <img id="qrImg" src="wechat-qr.png" alt="WeChat QR" class="w-48 h-48 object-cover mx-auto rounded-md shadow">
+      <p class="text-sm mt-4 text-gray-600">长按识别，客服将在 24 小时内联系你 😊</p>
+    </div>
+  </div>
+
+  <!-- ===== JS：图标渲染 & 弹窗逻辑 ===== -->
+  <script>
+    // 渲染 lucide 图标
+    window.addEventListener('load', () => {
+      lucide.createIcons();
+    });
+
+    // 弹窗
+    const modal = document.getElementById('qrModal');
+    const closeBtn = document.getElementById('qrClose');
+
+    function openQR () {
+      modal.classList.add('modal-show');
+    }
+    function closeQR () {
+      modal.classList.remove('modal-show');
+    }
+
+    document.querySelectorAll('.js-show-qr').forEach(btn => {
+      btn.addEventListener('click', openQR);
+    });
+    closeBtn.addEventListener('click', closeQR);
+    modal.addEventListener('click', e => {
+      if (e.target === modal) closeQR();
+    });
+  </script>
+</body>
+</html>
