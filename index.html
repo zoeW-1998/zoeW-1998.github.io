@@ -1,253 +1,504 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <title>Zoe English Studio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Tailwind (CDN) -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-  <!-- Lucide Icons (CDN) -->
-  <script src="https://unpkg.com/lucide@latest" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Zoe English Studio | 专注澳洲英语辅导</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-  <style>
-    /* 简单的遮罩 & 弹窗样式 */
-    .modal-mask {
-      background: rgba(0,0,0,.6);
-    }
-    .modal-show {
-      display: flex;
-    }
-  </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#E11D48', // Rose-600
+                        secondary: '#FFF1F2', // Rose-50
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* 隐藏滚动条但保留功能 */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* 底部抽屉动画 */
+        .drawer-enter-active, .drawer-leave-active { transition: transform 0.3s ease-in-out; }
+        .drawer-enter-from, .drawer-leave-to { transform: translateY(100%); }
+        
+        /* 模态框背景渐变 */
+        .modal-backdrop { background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); }
+        
+        body { -webkit-tap-highlight-color: transparent; }
+    </style>
 </head>
 
-<body class="bg-gray-50 text-gray-900">
+<body class="bg-gray-50 text-slate-800 antialiased pb-24" x-data="studioData()">
 
-  <!-- ===== Header ===== -->
-  <header class="bg-white shadow-sm border-b">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center space-x-4 w-full">
-        <button class="md:hidden" aria-label="Menu"><i data-lucide="menu" class="w-5 h-5"></i></button>
-
-        <!-- search -->
-        <div class="relative flex-1 max-w-md">
-          <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
-          <input
-            type="text"
-            placeholder="Search courses..."
-            class="pl-10 w-full py-2 bg-gray-100 rounded-md focus:ring-0 focus:outline-none"
-          >
+    <header class="bg-white sticky top-0 z-30 border-b border-gray-100 shadow-sm/50 backdrop-blur-md bg-white/90">
+        <div class="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-gradient-to-br from-primary to-red-500 rounded-lg flex items-center justify-center text-white font-bold text-sm shadow-md shadow-red-200">
+                    ZE
+                </div>
+                <h1 class="font-bold text-lg tracking-tight">Zoe Studio</h1>
+            </div>
+            <button @click="openQR" class="bg-black text-white px-4 py-1.5 rounded-full text-xs font-medium hover:bg-gray-800 transition active:scale-95 flex items-center">
+                <i data-lucide="message-circle" class="w-3.5 h-3.5 mr-1.5"></i> 咨询
+            </button>
         </div>
-      </div>
+    </header>
 
-      <div class="flex items-center space-x-2">
-        <button aria-label="Profile"><i data-lucide="user" class="w-5 h-5"></i></button>
-        <button aria-label="More"><i data-lucide="menu" class="w-5 h-5"></i></button>
-      </div>
-    </div>
-  </header>
-
-  <!-- ===== Studio Profile ===== -->
-  <section class="bg-white border-b">
-    <div class="max-w-6xl mx-auto px-4 py-6 flex items-center justify-between">
-      <div class="flex items-center space-x-4">
-        <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">ES</div>
-        <div>
-          <h1 class="text-xl font-bold">Zoe English Studio</h1>
-          <div class="flex space-x-4 text-gray-600 text-sm mt-1">
-            <span class="flex items-center"><i data-lucide="users" class="w-4 h-4 mr-1"></i>2.8K students</span>
-            <span class="flex items-center"><i data-lucide="star" class="w-4 h-4 mr-1 text-yellow-500"></i>4.9 rating</span>
-          </div>
+    <section class="max-w-2xl mx-auto px-4 pt-6 pb-2">
+        <div class="flex items-start justify-between mb-4">
+            <div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-1">专注澳洲英语辅导 🇦🇺</h2>
+                <p class="text-sm text-gray-500">IELTS / PTE / EAL / 口语 / 留学面试</p>
+            </div>
+            <div class="flex -space-x-2">
+                <div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white bg-cover" style="background-image: url('https://api.dicebear.com/7.x/avataaars/svg?seed=Zoe')"></div>
+                <div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white bg-cover" style="background-image: url('https://api.dicebear.com/7.x/avataaars/svg?seed=Alex')"></div>
+                <div class="w-8 h-8 rounded-full bg-secondary text-primary border-2 border-white flex items-center justify-center text-[10px] font-bold">+3</div>
+            </div>
         </div>
-      </div>
-      <!-- Follow button -->
-      <button class="js-show-qr flex items-center bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md">
-        <i data-lucide="plus" class="w-4 h-4 mr-1"></i>Follow
-      </button>
-    </div>
+        
+        <div class="grid grid-cols-3 gap-3 mb-6">
+            <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm text-center">
+                <div class="text-primary font-bold text-lg">2.8k+</div>
+                <div class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">学员</div>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm text-center">
+                <div class="text-yellow-500 font-bold text-lg flex items-center justify-center">4.9 <i data-lucide="star" class="w-3 h-3 ml-0.5 fill-current"></i></div>
+                <div class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">评分</div>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm text-center">
+                <div class="text-blue-500 font-bold text-lg">100%</div>
+                <div class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">定制</div>
+            </div>
+        </div>
+    </section>
 
-    <!-- quick stats -->
-    <div class="max-w-6xl mx-auto px-4 pb-6 flex space-x-8 text-sm">
-      <div class="flex items-center text-red-500"><i data-lucide="star" class="w-4 h-4 mr-1"></i>Recent 6 months:&nbsp;<span class="font-semibold">1.2K</span>&nbsp;5-star reviews</div>
-      <div class="flex items-center text-red-500"><i data-lucide="book-open" class="w-4 h-4 mr-1"></i>Hot courses:&nbsp;<span class="font-semibold">15</span>&nbsp;active</div>
-      <div class="flex items-center text-red-500"><i data-lucide="award" class="w-4 h-4 mr-1"></i>Certified instructors</div>
-    </div>
-  </section>
+    <section class="max-w-2xl mx-auto pl-4 mb-8 overflow-hidden">
+        <div class="flex items-center justify-between pr-4 mb-3">
+            <h3 class="font-bold text-lg">超值课时包</h3>
+            <span class="text-xs text-gray-400">EAL/D 课程单独定价</span>
+        </div>
+        <div class="flex space-x-3 overflow-x-auto no-scrollbar pr-4 pb-2">
+            
+            <div class="min-w-[140px] bg-white p-4 rounded-2xl border border-gray-200 shadow-sm flex-shrink-0 flex flex-col justify-between">
+                <div>
+                    <span class="text-xs font-medium text-gray-400">灵活单约</span>
+                    <div class="text-xl font-bold mt-1 text-gray-900">$55<span class="text-sm font-normal text-gray-500">/h</span></div>
+                </div>
+                <div class="mt-4 text-[10px] text-gray-500 bg-gray-50 py-1 px-2 rounded">
+                    无捆绑，随时约
+                </div>
+            </div>
 
-  <!-- ===== Tabs (静态标签，点击不切换) ===== -->
-  <nav class="bg-white border-b">
-    <div class="max-w-6xl mx-auto px-4 flex space-x-8">
-      <span class="py-4 px-2 border-b-2 border-red-500 text-red-600 text-sm font-medium">Courses</span>
-      <span class="py-4 px-2 border-b-2 border-transparent text-gray-500 text-sm font-medium">Categories</span>
-    </div>
-  </nav>
+            <div class="min-w-[150px] bg-gradient-to-br from-gray-800 to-gray-900 p-4 rounded-2xl shadow-lg flex-shrink-0 flex flex-col justify-between text-white relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-yellow-500 text-[10px] font-bold px-2 py-1 rounded-bl-lg text-black">HOT</div>
+                <div>
+                    <span class="text-xs font-medium text-gray-300">30 课时包</span>
+                    <div class="text-2xl font-bold mt-1">$1500</div>
+                    <div class="text-xs text-gray-400 line-through">$1650</div>
+                </div>
+                <div class="mt-3 flex items-center text-xs font-bold text-yellow-400">
+                    $50/h <i data-lucide="arrow-down" class="w-3 h-3 ml-1"></i>
+                </div>
+            </div>
 
-  <!-- ===== Filters (静态) ===== -->
-  <div class="bg-white border-b">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center space-x-6">
-      <span class="text-red-600 text-sm font-medium">Comprehensive</span>
-      <span class="text-gray-600 text-sm">Most Popular</span>
-      <span class="text-gray-600 text-sm">Newest</span>
-      <span class="text-gray-600 text-sm">Price ↑</span>
-      <span class="ml-auto md:hidden"><i data-lucide="menu" class="w-4 h-4"></i></span>
-    </div>
-  </div>
+            <div class="min-w-[150px] bg-gradient-to-br from-primary to-rose-700 p-4 rounded-2xl shadow-lg flex-shrink-0 flex flex-col justify-between text-white relative">
+                <div class="absolute top-0 right-0 bg-white/20 backdrop-blur text-[10px] font-bold px-2 py-1 rounded-bl-lg">BEST</div>
+                <div>
+                    <span class="text-xs font-medium text-rose-100">60 课时包</span>
+                    <div class="text-2xl font-bold mt-1">$2700</div>
+                    <div class="text-xs text-rose-200 line-through">$3300</div>
+                </div>
+                <div class="mt-3 flex items-center text-xs font-bold text-white">
+                    $45/h <i data-lucide="arrow-down" class="w-3 h-3 ml-1"></i>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- ===== Course Grid ===== -->
-  <main class="max-w-6xl mx-auto px-4 py-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-    <!-- card template (复制 4 次) -->
-    <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow">
-      <div class="relative">
-        <img src="https://placehold.co/600x200?text=120×200" alt="IELTS Speaking Intensive" class="w-full h-32 object-cover">
-        <span class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">BESTSELLER</span>
-      </div>
-      <div class="p-4">
-        <h3 class="font-semibold mb-1">IELTS Speaking Intensive</h3>
-        <p class="text-sm text-gray-600 mb-2">1-on-1 Premium Course</p>
-
-        <div class="flex justify-between items-center mb-2">
-          <div class="flex items-center space-x-2">
-            <span class="text-lg font-bold text-red-600">$299</span>
-            <span class="text-sm text-gray-500 line-through">$399</span>
-          </div>
-          <div class="flex items-center text-sm text-gray-600">
-            <i data-lucide="clock" class="w-4 h-4 mr-1"></i>20 hours
-          </div>
+    <main class="max-w-2xl mx-auto px-4" id="courses">
+        <div class="flex space-x-6 border-b border-gray-100 mb-6 overflow-x-auto no-scrollbar">
+            <template x-for="cat in categories" :key="cat">
+                <button 
+                    @click="activeCategory = cat"
+                    class="pb-3 text-sm font-medium whitespace-nowrap transition-colors relative"
+                    :class="activeCategory === cat ? 'text-primary' : 'text-gray-400 hover:text-gray-600'"
+                >
+                    <span x-text="cat"></span>
+                    <div x-show="activeCategory === cat" class="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-t-full" style="display: none;" x-show.transition></div>
+                    <div x-show="activeCategory === cat" class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-4 h-0.5 bg-primary rounded-full"></div>
+                </button>
+            </template>
         </div>
 
-        <div class="flex justify-between text-sm text-gray-600">
-          <span>500+ enrolled</span>
-          <span class="flex items-center"><i data-lucide="star" class="w-4 h-4 text-yellow-500 mr-1"></i>4.9 (128)</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-8">
+            <template x-for="course in filteredCourses" :key="course.id">
+                <div @click="openModal(course)" class="bg-white rounded-2xl p-3 shadow-sm border border-gray-100 hover:shadow-md transition cursor-pointer group flex gap-4 md:block">
+                    <div class="relative w-24 h-24 md:w-full md:h-40 flex-shrink-0 rounded-xl overflow-hidden bg-gray-100">
+                        <img :src="course.image" :alt="course.title" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <span x-show="course.tag" x-text="course.tag" class="absolute top-2 left-2 bg-black/70 backdrop-blur text-white text-[10px] font-bold px-2 py-0.5 rounded"></span>
+                    </div>
+                    
+                    <div class="flex-1 md:mt-3 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-bold text-gray-900 leading-tight" x-text="course.title"></h3>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1 line-clamp-2" x-text="course.shortDesc"></p>
+                        </div>
+                        
+                        <div class="mt-3 flex items-end justify-between">
+                            <div class="text-primary font-bold text-sm">
+                                <span x-text="course.priceType === 'eal' ? '$65' : '$55'"></span>
+                                <span class="text-xs font-normal text-gray-400">/h 起</span>
+                            </div>
+                            <button class="bg-gray-100 text-gray-600 p-1.5 rounded-lg group-hover:bg-primary group-hover:text-white transition">
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </main>
+
+    <section class="max-w-2xl mx-auto px-4 mb-20">
+        <h3 class="font-bold text-lg mb-3">学员反馈 & 战绩</h3>
+        <div class="flex space-x-3 overflow-x-auto no-scrollbar mb-8 pb-2">
+            <template x-for="i in 4">
+                <div class="min-w-[200px] h-32 bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 text-xs border border-dashed border-gray-300">
+                    <span class="flex items-center"><i data-lucide="image" class="w-4 h-4 mr-1"></i> Screenshot {{i}}</span>
+                </div>
+            </template>
         </div>
 
-        <button class="js-show-qr w-full mt-3 bg-red-500 hover:bg-red-600 text-white py-2 rounded-md">Enroll Now</button>
-      </div>
+        <div class="bg-white rounded-xl border border-gray-100 divide-y divide-gray-100">
+            <div x-data="{ expanded: false }" class="overflow-hidden">
+                <button @click="expanded = !expanded" class="w-full flex items-center justify-between p-4 text-left">
+                    <span class="text-sm font-medium flex items-center"><i data-lucide="calendar-clock" class="w-4 h-4 mr-2 text-primary"></i>预约试听与排课</span>
+                    <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition" :class="{'rotate-180': expanded}"></i>
+                </button>
+                <div x-show="expanded" x-collapse class="px-4 pb-4 text-xs text-gray-500 leading-relaxed bg-gray-50/50">
+                    首次报课学生可预约试听课（正常1节课价格）。我们会根据试听情况制定学习规划。<br/><br/>
+                    支持固定排课或提前2天灵活约课。
+                </div>
+            </div>
+            <div x-data="{ expanded: false }" class="overflow-hidden">
+                <button @click="expanded = !expanded" class="w-full flex items-center justify-between p-4 text-left">
+                    <span class="text-sm font-medium flex items-center"><i data-lucide="shield-alert" class="w-4 h-4 mr-2 text-primary"></i>取消与退款政策</span>
+                    <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition" :class="{'rotate-180': expanded}"></i>
+                </button>
+                <div x-show="expanded" x-collapse class="px-4 pb-4 text-xs text-gray-500 leading-relaxed bg-gray-50/50">
+                    <p class="font-bold text-gray-700 mb-1">请假规则：</p>
+                    临时取消需要至少提前3小时通知，否则课时照常扣除。<br/><br/>
+                    <p class="font-bold text-gray-700 mb-1">退款规则：</p>
+                    一周以内无理由退款，一周以后不支持退课。课时包支持朋友、家人共享使用。
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-8 text-xs text-gray-300">
+            &copy; 2024 Zoe English Studio. Melbourne.
+        </div>
+    </section>
+
+
+    <div 
+        x-show="showModal" 
+        style="display: none;"
+        class="fixed inset-0 z-50 flex items-end justify-center sm:items-center"
+    >
+        <div 
+            @click="showModal = false"
+            x-show="showModal"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            class="absolute inset-0 modal-backdrop"
+        ></div>
+
+        <div 
+            x-show="showModal"
+            x-transition:enter="transition transform ease-out duration-300"
+            x-transition:enter-start="translate-y-full sm:scale-95 sm:opacity-0"
+            x-transition:enter-end="translate-y-0 sm:scale-100 sm:opacity-100"
+            x-transition:leave="transition transform ease-in duration-200"
+            x-transition:leave-start="translate-y-0 sm:scale-100 sm:opacity-100"
+            x-transition:leave-end="translate-y-full sm:scale-95 sm:opacity-0"
+            class="relative bg-white w-full max-w-lg rounded-t-3xl sm:rounded-2xl shadow-2xl max-h-[85vh] overflow-y-auto"
+        >
+            <div class="sticky top-0 bg-white/90 backdrop-blur z-10 flex justify-end p-4 border-b border-gray-100">
+                <button @click="showModal = false" class="bg-gray-100 p-1 rounded-full text-gray-500 hover:bg-gray-200">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            
+            <div class="px-6 pb-20 pt-2" x-data="{ course: selectedCourse }">
+                <div class="flex items-center space-x-3 mb-4">
+                    <span x-text="course.tag" x-show="course.tag" class="bg-secondary text-primary px-2 py-1 rounded text-xs font-bold uppercase"></span>
+                    <span x-show="course.priceType === 'eal'" class="text-xs text-orange-500 font-bold border border-orange-200 px-2 py-1 rounded">名师精品</span>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-2" x-text="course.title"></h2>
+                
+                <div class="flex items-center space-x-4 text-sm text-gray-500 mb-6">
+                    <span class="flex items-center"><i data-lucide="clock" class="w-4 h-4 mr-1"></i> 60 min</span>
+                    <span class="flex items-center"><i data-lucide="map-pin" class="w-4 h-4 mr-1"></i> Online / Melbourne</span>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-gray-900 mb-2 flex items-center"><i data-lucide="users" class="w-4 h-4 mr-2 text-primary"></i>Target Audience</h4>
+                    <p class="text-sm text-gray-600 bg-gray-50 p-3 rounded-lg leading-relaxed" x-text="course.audience"></p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-gray-900 mb-2 flex items-center"><i data-lucide="book-open" class="w-4 h-4 mr-2 text-primary"></i>Course Details</h4>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <template x-for="item in course.details" :key="item">
+                            <li class="flex items-start">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 mr-2 text-green-500 flex-shrink-0 mt-0.5"></i>
+                                <span x-text="item"></span>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="absolute bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-100 flex items-center justify-between">
+                <div>
+                    <div class="text-xs text-gray-400">Price</div>
+                    <div class="text-xl font-bold text-primary">
+                        <span x-text="selectedCourse.priceType === 'eal' ? '$65' : '$55'"></span>
+                        <span class="text-xs text-gray-500 font-normal">/h 起</span>
+                    </div>
+                </div>
+                <button @click="showModal = false; openQR()" class="bg-gray-900 text-white px-6 py-3 rounded-xl font-bold text-sm shadow-lg shadow-gray-300 hover:bg-black transition flex items-center">
+                    立即咨询 <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                </button>
+            </div>
+        </div>
     </div>
 
-    <!-- 其他 3 张卡片（示例快速复制粘贴） -->
-    <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow">
-      <div class="relative">
-        <img src="https://placehold.co/600x200?text=120×200" alt="Business English Mastery" class="w-full h-32 object-cover">
-        <span class="absolute top-2 left-2 bg-orange-500 text-white text-xs px-2 py-1 rounded">POPULAR</span>
-      </div>
-      <div class="p-4">
-        <h3 class="font-semibold mb-1">Business English Mastery</h3>
-        <p class="text-sm text-gray-600 mb-2">Professional Communication</p>
-        <div class="flex justify-between items-center mb-2">
-          <div class="flex items-center space-x-2">
-            <span class="text-lg font-bold text-red-600">$199</span>
-            <span class="text-sm text-gray-500 line-through">$299</span>
-          </div>
-          <div class="flex items-center text-sm text-gray-600"><i data-lucide="clock" class="w-4 h-4 mr-1"></i>15 hours</div>
+    <div 
+        x-show="showQR" 
+        style="display: none;"
+        class="fixed inset-0 z-[60] flex items-center justify-center modal-mask"
+    >
+        <div @click="showQR = false" class="absolute inset-0 modal-backdrop"></div>
+        <div class="bg-white rounded-2xl p-6 max-w-xs text-center relative z-10 shadow-2xl mx-4 transform transition-all">
+            <button @click="showQR = false" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <h2 class="text-lg font-bold mb-1">添加 Zoe 客服微信</h2>
+            <p class="text-xs text-gray-500 mb-4">预约试听 / 咨询课表 / 定制计划</p>
+            
+            <div class="bg-gray-100 w-48 h-48 mx-auto rounded-xl flex items-center justify-center mb-4 overflow-hidden">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=WeChat-ID-Here" alt="WeChat QR" class="w-full h-full object-cover">
+            </div>
+            
+            <p class="text-xs text-gray-400">长按识别，或截图保存</p>
+            <div class="mt-4 bg-secondary text-primary text-xs py-2 px-3 rounded-lg font-medium">
+                WeChat ID: Zoe_English_Studio
+            </div>
         </div>
-        <div class="flex justify-between text-sm text-gray-600">
-          <span>300+ enrolled</span>
-          <span class="flex items-center"><i data-lucide="star" class="w-4 h-4 text-yellow-500 mr-1"></i>4.8 (89)</span>
-        </div>
-        <button class="js-show-qr w-full mt-3 bg-red-500 hover:bg-red-600 text-white py-2 rounded-md">Enroll Now</button>
-      </div>
     </div>
 
-    <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow">
-      <div class="relative">
-        <img src="https://placehold.co/600x200?text=120×200" alt="Grammar Foundation" class="w-full h-32 object-cover">
-        <span class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">BEGINNER</span>
-      </div>
-      <div class="p-4">
-        <h3 class="font-semibold mb-1">Grammar Foundation</h3>
-        <p class="text-sm text-gray-600 mb-2">Essential English Grammar</p>
-        <div class="flex justify-between items-center mb-2">
-          <div class="flex items-center space-x-2">
-            <span class="text-lg font-bold text-red-600">$99</span>
-            <span class="text-sm text-gray-500 line-through">$149</span>
-          </div>
-          <div class="flex items-center text-sm text-gray-600"><i data-lucide="clock" class="w-4 h-4 mr-1"></i>12 hours</div>
-        </div>
-        <div class="flex justify-between text-sm text-gray-600">
-          <span>800+ enrolled</span>
-          <span class="flex items-center"><i data-lucide="star" class="w-4 h-4 text-yellow-500 mr-1"></i>4.7 (234)</span>
-        </div>
-        <button class="js-show-qr w-full mt-3 bg-red-500 hover:bg-red-600 text-white py-2 rounded-md">Enroll Now</button>
-      </div>
-    </div>
+    <script>
+        function studioData() {
+            return {
+                activeCategory: 'All',
+                categories: ['All', 'Exam Prep', 'General English', 'Academic', 'Kids'],
+                showModal: false,
+                showQR: false,
+                selectedCourse: {},
 
-    <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow">
-      <div class="relative">
-        <img src="https://placehold.co/600x200?text=120×200" alt="Conversation Club" class="w-full h-32 object-cover">
-        <span class="absolute top-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded">GROUP</span>
-      </div>
-      <div class="p-4">
-        <h3 class="font-semibold mb-1">Conversation Club</h3>
-        <p class="text-sm text-gray-600 mb-2">Weekly Speaking Practice</p>
-        <div class="flex justify-between items-center mb-2">
-          <div class="flex items-center space-x-2">
-            <span class="text-lg font-bold text-red-600">$79</span>
-            <span class="text-sm text-gray-500 line-through">$99</span>
-          </div>
-          <div class="flex items-center text-sm text-gray-600"><i data-lucide="clock" class="w-4 h-4 mr-1"></i>Ongoing</div>
-        </div>
-        <div class="flex justify-between text-sm text-gray-600">
-          <span>1000+ enrolled</span>
-          <span class="flex items-center"><i data-lucide="star" class="w-4 h-4 text-yellow-500 mr-1"></i>4.9 (456)</span>
-        </div>
-        <button class="js-show-qr w-full mt-3 bg-red-500 hover:bg-red-600 text-white py-2 rounded-md">Enroll Now</button>
-      </div>
-    </div>
-  </main>
+                // 核心课程数据 (JSON) - 可以在这里修改内容
+                courses: [
+                    {
+                        id: 1,
+                        title: 'IELTS 雅思 A/G 类',
+                        category: 'Exam Prep',
+                        tag: 'Bestseller',
+                        priceType: 'standard', // 55
+                        image: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=400',
+                        shortDesc: '针对澳洲各类签证 (485, 500, 189) 语言要求定制。',
+                        audience: '针对澳洲各类签证如485，500，189等，需要不同语言要求学生。',
+                        details: [
+                            '阅读听力：讲各类题型技巧，上机练题，课后作业',
+                            '写作：练习各类话题，老师进行精细批改',
+                            '口语：全英辅导，覆盖澳洲口语题库，教授地道表达'
+                        ]
+                    },
+                    {
+                        id: 4,
+                        title: 'PTE 冲刺班',
+                        category: 'Exam Prep',
+                        tag: 'Popular',
+                        priceType: 'standard',
+                        image: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=400',
+                        shortDesc: '适合移民需要语言要求的学生，高效出分技巧。',
+                        audience: '移民需要语言要求的学生，追求短时间高效出分。',
+                        details: [
+                            '听说读写全科技巧讲解',
+                            '真题机经练习与讲解',
+                            'AI 评分标准深度解析',
+                            '一对一纠音与模考'
+                        ]
+                    },
+                    {
+                        id: 8,
+                        title: 'EAL/D Academic Support',
+                        category: 'Academic',
+                        tag: 'Year 10-12',
+                        priceType: 'eal', // 65
+                        image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=400',
+                        shortDesc: 'VCE/HSC 澳洲中学英语辅导，修辞手法与写作深度解析。',
+                        audience: '澳洲在读中学 Year 10, Year 11, Year 12 学生 (VCE/HSC 等)。',
+                        details: [
+                            'Text Response & Language Analysis 辅导',
+                            '讲授修辞手法与文学分析技巧',
+                            'Essay 结构优化与逻辑提升',
+                            '扎实英语基础，应对校内评估 (SACs)'
+                        ]
+                    },
+                    {
+                        id: 2,
+                        title: '成人英语 (0基础/薄弱)',
+                        category: 'General English',
+                        tag: 'Foundation',
+                        priceType: 'standard',
+                        image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=400',
+                        shortDesc: '从发音拼读开始，4-5个月建立基本交流能力。',
+                        audience: '0基础或基础薄弱的成人学员。建议至少制定 4-5 个月学习计划。',
+                        details: [
+                            '自然拼读与国际音标纠正',
+                            '基础核心词汇构建',
+                            '常用生活句型与语法入门',
+                            '场景化口语模拟 (购物、看病、出行)'
+                        ]
+                    },
+                    {
+                        id: 3,
+                        title: '成人英语 (进阶)',
+                        category: 'General English',
+                        tag: 'Intermediate',
+                        priceType: 'standard',
+                        image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=400',
+                        shortDesc: '纠正中式英语，提升地道表达。适合已有基础 (IELTS 5.0+) 学员。',
+                        audience: '有英语基础 (水平约 5 - 5.5)，想进一步提升地道表达能力的学员。',
+                        details: [
+                            '深度纠正中式发音与语调',
+                            '扩展高级词汇与习语',
+                            '复杂句式结构训练',
+                            '文化背景知识补充'
+                        ]
+                    },
+                    {
+                        id: 5,
+                        title: '全英口语 (Native Speaker)',
+                        category: 'General English',
+                        tag: 'Speaking',
+                        priceType: 'standard',
+                        image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=400',
+                        shortDesc: '本地 ABC 老师授课，纯正口音，可中英双语辅助。',
+                        audience: '希望沉浸式练习口语，适应澳洲本地口音的学生。',
+                        details: [
+                            '全英文授课环境',
+                            '地道澳式俚语 (Slang) 解析',
+                            '高频生活/职场话题讨论',
+                            '即时纠错反馈'
+                        ]
+                    },
+                    {
+                        id: 6,
+                        title: 'AEAS 备考 (私校入学)',
+                        category: 'Kids',
+                        tag: 'School Prep',
+                        priceType: 'standard',
+                        image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=400',
+                        shortDesc: '针对 Years 4-12 澳洲私校入学考试，补基础教技巧。',
+                        audience: '准备澳洲私校入学考试，或澳洲转学的学生 (Year 4-12)。',
+                        details: [
+                            '词汇量扩充与逻辑推理训练',
+                            'AEAS 考试题型专项突破',
+                            '数学/逻辑部分的英语术语辅导',
+                            '考前真题模拟'
+                        ]
+                    },
+                    {
+                        id: 7,
+                        title: '语言班 Essay 辅导',
+                        category: 'Academic',
+                        tag: 'University',
+                        priceType: 'standard',
+                        image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80&w=400',
+                        shortDesc: '针对即将入读或在读语言班学生，攻克学术写作难关。',
+                        audience: '即将来读语言班或语言班在读学生，写作薄弱者。',
+                        details: [
+                            '学术论文结构 (Structure) 详解',
+                            '引用格式 (APA/Harvard) 规范指导',
+                            '批判性思维 (Critical Thinking) 训练',
+                            '作业润色与修改建议'
+                        ]
+                    },
+                    {
+                        id: 9,
+                        title: '求职/留学面试辅导',
+                        category: 'General English',
+                        tag: 'Interview',
+                        priceType: 'standard',
+                        image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400',
+                        shortDesc: '模拟面试 Mock，答案优化，短期冲刺。',
+                        audience: '短期冲刺，面临签证面试、外企求职或学校面试的学生。',
+                        details: [
+                            '常见面试问题库准备',
+                            '个性化答案润色与修正',
+                            '全真英语模拟面试 (Mock Interview)',
+                            '面试礼仪与自信心建立'
+                        ]
+                    }
+                ],
 
-  <!-- ===== Bottom Nav (Mobile) ===== -->
-  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t md:hidden">
-    <div class="flex justify-around py-2">
-      <a href="#" class="flex flex-col items-center text-gray-600">
-        <i data-lucide="home" class="w-5 h-5"></i><span class="text-xs mt-1">Home</span>
-      </a>
-      <a href="#" class="flex flex-col items-center text-red-500">
-        <i data-lucide="book-open" class="w-5 h-5"></i><span class="text-xs mt-1">Courses</span>
-      </a>
-      <a href="#" class="flex flex-col items-center text-gray-600">
-        <i data-lucide="message-circle" class="w-5 h-5"></i><span class="text-xs mt-1">Support</span>
-      </a>
-    </div>
-  </nav>
-  <!-- 占位，避免内容被底部导航遮挡 -->
-  <div class="h-16 md:hidden"></div>
+                // 简单的过滤逻辑
+                get filteredCourses() {
+                    if (this.activeCategory === 'All') return this.courses;
+                    return this.courses.filter(c => c.category === this.activeCategory);
+                },
 
-  <!-- ===== QR Modal (隐藏状态) ===== -->
-  <div id="qrModal" class="fixed inset-0 hidden items-center justify-center modal-mask z-50">
-    <div class="bg-white rounded-xl p-6 max-w-xs text-center relative">
-      <button id="qrClose" class="absolute top-2 right-2 text-gray-500" aria-label="Close">
-        <i data-lucide="x" class="w-5 h-5"></i>
-      </button>
-      <h2 class="text-lg font-semibold mb-4">扫描微信二维码报名 / 关注</h2>
-      <img id="qrImg" src="wechat-qr.png" alt="WeChat QR" class="w-48 h-48 object-cover mx-auto rounded-md shadow">
-      <p class="text-sm mt-4 text-gray-600">长按识别，客服将在 24 小时内联系你 😊</p>
-    </div>
-  </div>
-
-  <!-- ===== JS：图标渲染 & 弹窗逻辑 ===== -->
-  <script>
-    // 渲染 lucide 图标
-    window.addEventListener('load', () => {
-      lucide.createIcons();
-    });
-
-    // 弹窗
-    const modal = document.getElementById('qrModal');
-    const closeBtn = document.getElementById('qrClose');
-
-    function openQR () {
-      modal.classList.add('modal-show');
-    }
-    function closeQR () {
-      modal.classList.remove('modal-show');
-    }
-
-    document.querySelectorAll('.js-show-qr').forEach(btn => {
-      btn.addEventListener('click', openQR);
-    });
-    closeBtn.addEventListener('click', closeQR);
-    modal.addEventListener('click', e => {
-      if (e.target === modal) closeQR();
-    });
-  </script>
+                openModal(course) {
+                    this.selectedCourse = course;
+                    this.showModal = true;
+                },
+                openQR() {
+                    this.showQR = true;
+                },
+                
+                // 初始化图标
+                init() {
+                    this.$nextTick(() => {
+                        lucide.createIcons();
+                    });
+                    // 监听DOM变化重新渲染图标 (当过滤发生时)
+                    this.$watch('activeCategory', () => {
+                        setTimeout(() => lucide.createIcons(), 50);
+                    });
+                }
+            }
+        }
+    </script>
 </body>
 </html>
