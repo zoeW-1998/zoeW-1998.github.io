@@ -24,22 +24,15 @@
         }
     </script>
     <style>
-        /* 隐藏滚动条但保留功能 */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* 底部抽屉动画 */
-        .drawer-enter-active, .drawer-leave-active { transition: transform 0.3s ease-in-out; }
-        .drawer-enter-from, .drawer-leave-to { transform: translateY(100%); }
-        
-        /* 模态框背景渐变 */
         .modal-backdrop { background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); }
-        
         body { -webkit-tap-highlight-color: transparent; }
+        [x-cloak] { display: none !important; }
     </style>
 </head>
 
-<body class="bg-gray-50 text-slate-800 antialiased pb-24" x-data="studioData()">
+<body class="bg-gray-50 text-slate-800 antialiased pb-24" x-data="studioData()" x-cloak>
 
     <header class="bg-white sticky top-0 z-30 border-b border-gray-100 shadow-sm/50 backdrop-blur-md bg-white/90">
         <div class="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">
@@ -90,17 +83,13 @@
             <span class="text-xs text-gray-400">EAL/D 课程单独定价</span>
         </div>
         <div class="flex space-x-3 overflow-x-auto no-scrollbar pr-4 pb-2">
-            
             <div class="min-w-[140px] bg-white p-4 rounded-2xl border border-gray-200 shadow-sm flex-shrink-0 flex flex-col justify-between">
                 <div>
                     <span class="text-xs font-medium text-gray-400">灵活单约</span>
                     <div class="text-xl font-bold mt-1 text-gray-900">$55<span class="text-sm font-normal text-gray-500">/h</span></div>
                 </div>
-                <div class="mt-4 text-[10px] text-gray-500 bg-gray-50 py-1 px-2 rounded">
-                    无捆绑，随时约
-                </div>
+                <div class="mt-4 text-[10px] text-gray-500 bg-gray-50 py-1 px-2 rounded">无捆绑，随时约</div>
             </div>
-
             <div class="min-w-[150px] bg-gradient-to-br from-gray-800 to-gray-900 p-4 rounded-2xl shadow-lg flex-shrink-0 flex flex-col justify-between text-white relative overflow-hidden">
                 <div class="absolute top-0 right-0 bg-yellow-500 text-[10px] font-bold px-2 py-1 rounded-bl-lg text-black">HOT</div>
                 <div>
@@ -108,11 +97,8 @@
                     <div class="text-2xl font-bold mt-1">$1500</div>
                     <div class="text-xs text-gray-400 line-through">$1650</div>
                 </div>
-                <div class="mt-3 flex items-center text-xs font-bold text-yellow-400">
-                    $50/h <i data-lucide="arrow-down" class="w-3 h-3 ml-1"></i>
-                </div>
+                <div class="mt-3 flex items-center text-xs font-bold text-yellow-400">$50/h <i data-lucide="arrow-down" class="w-3 h-3 ml-1"></i></div>
             </div>
-
             <div class="min-w-[150px] bg-gradient-to-br from-primary to-rose-700 p-4 rounded-2xl shadow-lg flex-shrink-0 flex flex-col justify-between text-white relative">
                 <div class="absolute top-0 right-0 bg-white/20 backdrop-blur text-[10px] font-bold px-2 py-1 rounded-bl-lg">BEST</div>
                 <div>
@@ -120,9 +106,7 @@
                     <div class="text-2xl font-bold mt-1">$2700</div>
                     <div class="text-xs text-rose-200 line-through">$3300</div>
                 </div>
-                <div class="mt-3 flex items-center text-xs font-bold text-white">
-                    $45/h <i data-lucide="arrow-down" class="w-3 h-3 ml-1"></i>
-                </div>
+                <div class="mt-3 flex items-center text-xs font-bold text-white">$45/h <i data-lucide="arrow-down" class="w-3 h-3 ml-1"></i></div>
             </div>
         </div>
     </section>
@@ -136,7 +120,6 @@
                     :class="activeCategory === cat ? 'text-primary' : 'text-gray-400 hover:text-gray-600'"
                 >
                     <span x-text="cat"></span>
-                    <div x-show="activeCategory === cat" class="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-t-full" style="display: none;" x-show.transition></div>
                     <div x-show="activeCategory === cat" class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-4 h-0.5 bg-primary rounded-full"></div>
                 </button>
             </template>
@@ -146,18 +129,14 @@
             <template x-for="course in filteredCourses" :key="course.id">
                 <div @click="openModal(course)" class="bg-white rounded-2xl p-3 shadow-sm border border-gray-100 hover:shadow-md transition cursor-pointer group flex gap-4 md:block">
                     <div class="relative w-24 h-24 md:w-full md:h-40 flex-shrink-0 rounded-xl overflow-hidden bg-gray-100">
-                        <img :src="course.image" :alt="course.title" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <img :src="course.image" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         <span x-show="course.tag" x-text="course.tag" class="absolute top-2 left-2 bg-black/70 backdrop-blur text-white text-[10px] font-bold px-2 py-0.5 rounded"></span>
                     </div>
-                    
                     <div class="flex-1 md:mt-3 flex flex-col justify-between">
                         <div>
-                            <div class="flex justify-between items-start">
-                                <h3 class="font-bold text-gray-900 leading-tight" x-text="course.title"></h3>
-                            </div>
+                            <h3 class="font-bold text-gray-900 leading-tight" x-text="course.title"></h3>
                             <p class="text-xs text-gray-500 mt-1 line-clamp-2" x-text="course.shortDesc"></p>
                         </div>
-                        
                         <div class="mt-3 flex items-end justify-between">
                             <div class="text-primary font-bold text-sm">
                                 <span x-text="course.priceType === 'eal' ? '$65' : '$55'"></span>
@@ -172,47 +151,6 @@
             </template>
         </div>
     </main>
-
-    <section class="max-w-2xl mx-auto px-4 mb-20">
-        <h3 class="font-bold text-lg mb-3">学员反馈 & 战绩</h3>
-        <div class="flex space-x-3 overflow-x-auto no-scrollbar mb-8 pb-2">
-            <template x-for="i in 4">
-                <div class="min-w-[200px] h-32 bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 text-xs border border-dashed border-gray-300">
-                    <span class="flex items-center"><i data-lucide="image" class="w-4 h-4 mr-1"></i> Screenshot {{i}}</span>
-                </div>
-            </template>
-        </div>
-
-        <div class="bg-white rounded-xl border border-gray-100 divide-y divide-gray-100">
-            <div x-data="{ expanded: false }" class="overflow-hidden">
-                <button @click="expanded = !expanded" class="w-full flex items-center justify-between p-4 text-left">
-                    <span class="text-sm font-medium flex items-center"><i data-lucide="calendar-clock" class="w-4 h-4 mr-2 text-primary"></i>预约试听与排课</span>
-                    <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition" :class="{'rotate-180': expanded}"></i>
-                </button>
-                <div x-show="expanded" x-collapse class="px-4 pb-4 text-xs text-gray-500 leading-relaxed bg-gray-50/50">
-                    首次报课学生可预约试听课（正常1节课价格）。我们会根据试听情况制定学习规划。<br/><br/>
-                    支持固定排课或提前2天灵活约课。
-                </div>
-            </div>
-            <div x-data="{ expanded: false }" class="overflow-hidden">
-                <button @click="expanded = !expanded" class="w-full flex items-center justify-between p-4 text-left">
-                    <span class="text-sm font-medium flex items-center"><i data-lucide="shield-alert" class="w-4 h-4 mr-2 text-primary"></i>取消与退款政策</span>
-                    <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition" :class="{'rotate-180': expanded}"></i>
-                </button>
-                <div x-show="expanded" x-collapse class="px-4 pb-4 text-xs text-gray-500 leading-relaxed bg-gray-50/50">
-                    <p class="font-bold text-gray-700 mb-1">请假规则：</p>
-                    临时取消需要至少提前3小时通知，否则课时照常扣除。<br/><br/>
-                    <p class="font-bold text-gray-700 mb-1">退款规则：</p>
-                    一周以内无理由退款，一周以后不支持退课。课时包支持朋友、家人共享使用。
-                </div>
-            </div>
-        </div>
-        
-        <div class="text-center mt-8 text-xs text-gray-300">
-            &copy; 2024 Zoe English Studio. Melbourne.
-        </div>
-    </section>
-
 
     <div 
         x-show="showModal" 
@@ -247,13 +185,13 @@
                 </button>
             </div>
             
-            <div class="px-6 pb-20 pt-2" x-data="{ course: selectedCourse }">
+            <div class="px-6 pb-24 pt-2">
                 <div class="flex items-center space-x-3 mb-4">
-                    <span x-text="course.tag" x-show="course.tag" class="bg-secondary text-primary px-2 py-1 rounded text-xs font-bold uppercase"></span>
-                    <span x-show="course.priceType === 'eal'" class="text-xs text-orange-500 font-bold border border-orange-200 px-2 py-1 rounded">名师精品</span>
+                    <span x-text="selectedCourse.tag" x-show="selectedCourse.tag" class="bg-secondary text-primary px-2 py-1 rounded text-xs font-bold uppercase"></span>
+                    <span x-show="selectedCourse.priceType === 'eal'" class="text-xs text-orange-500 font-bold border border-orange-200 px-2 py-1 rounded">名师精品</span>
                 </div>
 
-                <h2 class="text-2xl font-bold mb-2" x-text="course.title"></h2>
+                <h2 class="text-2xl font-bold mb-2" x-text="selectedCourse.title"></h2>
                 
                 <div class="flex items-center space-x-4 text-sm text-gray-500 mb-6">
                     <span class="flex items-center"><i data-lucide="clock" class="w-4 h-4 mr-1"></i> 60 min</span>
@@ -262,13 +200,13 @@
 
                 <div class="mb-6">
                     <h4 class="font-bold text-gray-900 mb-2 flex items-center"><i data-lucide="users" class="w-4 h-4 mr-2 text-primary"></i>Target Audience</h4>
-                    <p class="text-sm text-gray-600 bg-gray-50 p-3 rounded-lg leading-relaxed" x-text="course.audience"></p>
+                    <p class="text-sm text-gray-600 bg-gray-50 p-3 rounded-lg leading-relaxed" x-text="selectedCourse.audience"></p>
                 </div>
 
                 <div class="mb-6">
                     <h4 class="font-bold text-gray-900 mb-2 flex items-center"><i data-lucide="book-open" class="w-4 h-4 mr-2 text-primary"></i>Course Details</h4>
                     <ul class="text-sm text-gray-600 space-y-2">
-                        <template x-for="item in course.details" :key="item">
+                        <template x-for="item in selectedCourse.details" :key="item">
                             <li class="flex items-start">
                                 <i data-lucide="check-circle-2" class="w-4 h-4 mr-2 text-green-500 flex-shrink-0 mt-0.5"></i>
                                 <span x-text="item"></span>
@@ -306,12 +244,12 @@
             <h2 class="text-lg font-bold mb-1">添加 Zoe 客服微信</h2>
             <p class="text-xs text-gray-500 mb-4">预约试听 / 咨询课表 / 定制计划</p>
             
-            <div class="bg-gray-100 w-48 h-48 mx-auto rounded-xl flex items-center justify-center mb-4 overflow-hidden">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=WeChat-ID-Here" alt="WeChat QR" class="w-full h-full object-cover">
+            <div class="bg-gray-100 w-48 h-48 mx-auto rounded-xl flex items-center justify-center mb-4 overflow-hidden border border-gray-200">
+                <img src="wechat-qr.png" alt="WeChat QR" class="w-full h-full object-cover">
             </div>
             
             <p class="text-xs text-gray-400">长按识别，或截图保存</p>
-            <div class="mt-4 bg-secondary text-primary text-xs py-2 px-3 rounded-lg font-medium">
+            <div class="mt-4 bg-secondary text-primary text-xs py-2 px-3 rounded-lg font-medium select-all">
                 WeChat ID: Zoe_English_Studio
             </div>
         </div>
@@ -324,24 +262,20 @@
                 categories: ['All', 'Exam Prep', 'General English', 'Academic', 'Kids'],
                 showModal: false,
                 showQR: false,
-                selectedCourse: {},
+                selectedCourse: {}, // 初始化为空
 
-                // 核心课程数据 (JSON) - 可以在这里修改内容
+                // 核心课程数据
                 courses: [
                     {
                         id: 1,
                         title: 'IELTS 雅思 A/G 类',
                         category: 'Exam Prep',
                         tag: 'Bestseller',
-                        priceType: 'standard', // 55
+                        priceType: 'standard',
                         image: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=400',
-                        shortDesc: '针对澳洲各类签证 (485, 500, 189) 语言要求定制。',
+                        shortDesc: '针对各类签证 (485, 500, 189) 语言要求定制。',
                         audience: '针对澳洲各类签证如485，500，189等，需要不同语言要求学生。',
-                        details: [
-                            '阅读听力：讲各类题型技巧，上机练题，课后作业',
-                            '写作：练习各类话题，老师进行精细批改',
-                            '口语：全英辅导，覆盖澳洲口语题库，教授地道表达'
-                        ]
+                        details: ['阅读听力：讲各类题型技巧，上机练题，课后作业', '写作：练习各类话题，老师进行精细批改', '口语：全英辅导，覆盖澳洲口语题库，教授地道表达']
                     },
                     {
                         id: 4,
@@ -352,28 +286,18 @@
                         image: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=400',
                         shortDesc: '适合移民需要语言要求的学生，高效出分技巧。',
                         audience: '移民需要语言要求的学生，追求短时间高效出分。',
-                        details: [
-                            '听说读写全科技巧讲解',
-                            '真题机经练习与讲解',
-                            'AI 评分标准深度解析',
-                            '一对一纠音与模考'
-                        ]
+                        details: ['听说读写全科技巧讲解', '真题机经练习与讲解', 'AI 评分标准深度解析', '一对一纠音与模考']
                     },
                     {
                         id: 8,
                         title: 'EAL/D Academic Support',
                         category: 'Academic',
                         tag: 'Year 10-12',
-                        priceType: 'eal', // 65
+                        priceType: 'eal',
                         image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=400',
                         shortDesc: 'VCE/HSC 澳洲中学英语辅导，修辞手法与写作深度解析。',
                         audience: '澳洲在读中学 Year 10, Year 11, Year 12 学生 (VCE/HSC 等)。',
-                        details: [
-                            'Text Response & Language Analysis 辅导',
-                            '讲授修辞手法与文学分析技巧',
-                            'Essay 结构优化与逻辑提升',
-                            '扎实英语基础，应对校内评估 (SACs)'
-                        ]
+                        details: ['Text Response & Language Analysis 辅导', '讲授修辞手法与文学分析技巧', 'Essay 结构优化与逻辑提升', '扎实英语基础，应对校内评估 (SACs)']
                     },
                     {
                         id: 2,
@@ -384,12 +308,7 @@
                         image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=400',
                         shortDesc: '从发音拼读开始，4-5个月建立基本交流能力。',
                         audience: '0基础或基础薄弱的成人学员。建议至少制定 4-5 个月学习计划。',
-                        details: [
-                            '自然拼读与国际音标纠正',
-                            '基础核心词汇构建',
-                            '常用生活句型与语法入门',
-                            '场景化口语模拟 (购物、看病、出行)'
-                        ]
+                        details: ['自然拼读与国际音标纠正', '基础核心词汇构建', '常用生活句型与语法入门', '场景化口语模拟 (购物、看病、出行)']
                     },
                     {
                         id: 3,
@@ -400,12 +319,7 @@
                         image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=400',
                         shortDesc: '纠正中式英语，提升地道表达。适合已有基础 (IELTS 5.0+) 学员。',
                         audience: '有英语基础 (水平约 5 - 5.5)，想进一步提升地道表达能力的学员。',
-                        details: [
-                            '深度纠正中式发音与语调',
-                            '扩展高级词汇与习语',
-                            '复杂句式结构训练',
-                            '文化背景知识补充'
-                        ]
+                        details: ['深度纠正中式发音与语调', '扩展高级词汇与习语', '复杂句式结构训练', '文化背景知识补充']
                     },
                     {
                         id: 5,
@@ -416,12 +330,7 @@
                         image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=400',
                         shortDesc: '本地 ABC 老师授课，纯正口音，可中英双语辅助。',
                         audience: '希望沉浸式练习口语，适应澳洲本地口音的学生。',
-                        details: [
-                            '全英文授课环境',
-                            '地道澳式俚语 (Slang) 解析',
-                            '高频生活/职场话题讨论',
-                            '即时纠错反馈'
-                        ]
+                        details: ['全英文授课环境', '地道澳式俚语 (Slang) 解析', '高频生活/职场话题讨论', '即时纠错反馈']
                     },
                     {
                         id: 6,
@@ -432,12 +341,7 @@
                         image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=400',
                         shortDesc: '针对 Years 4-12 澳洲私校入学考试，补基础教技巧。',
                         audience: '准备澳洲私校入学考试，或澳洲转学的学生 (Year 4-12)。',
-                        details: [
-                            '词汇量扩充与逻辑推理训练',
-                            'AEAS 考试题型专项突破',
-                            '数学/逻辑部分的英语术语辅导',
-                            '考前真题模拟'
-                        ]
+                        details: ['词汇量扩充与逻辑推理训练', 'AEAS 考试题型专项突破', '数学/逻辑部分的英语术语辅导', '考前真题模拟']
                     },
                     {
                         id: 7,
@@ -448,12 +352,7 @@
                         image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80&w=400',
                         shortDesc: '针对即将入读或在读语言班学生，攻克学术写作难关。',
                         audience: '即将来读语言班或语言班在读学生，写作薄弱者。',
-                        details: [
-                            '学术论文结构 (Structure) 详解',
-                            '引用格式 (APA/Harvard) 规范指导',
-                            '批判性思维 (Critical Thinking) 训练',
-                            '作业润色与修改建议'
-                        ]
+                        details: ['学术论文结构 (Structure) 详解', '引用格式 (APA/Harvard) 规范指导', '批判性思维 (Critical Thinking) 训练', '作业润色与修改建议']
                     },
                     {
                         id: 9,
@@ -464,16 +363,10 @@
                         image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400',
                         shortDesc: '模拟面试 Mock，答案优化，短期冲刺。',
                         audience: '短期冲刺，面临签证面试、外企求职或学校面试的学生。',
-                        details: [
-                            '常见面试问题库准备',
-                            '个性化答案润色与修正',
-                            '全真英语模拟面试 (Mock Interview)',
-                            '面试礼仪与自信心建立'
-                        ]
+                        details: ['常见面试问题库准备', '个性化答案润色与修正', '全真英语模拟面试 (Mock Interview)', '面试礼仪与自信心建立']
                     }
                 ],
 
-                // 简单的过滤逻辑
                 get filteredCourses() {
                     if (this.activeCategory === 'All') return this.courses;
                     return this.courses.filter(c => c.category === this.activeCategory);
@@ -482,17 +375,19 @@
                 openModal(course) {
                     this.selectedCourse = course;
                     this.showModal = true;
+                    // 打开弹窗后，强制刷新图标 (因为弹窗里的图标是新渲染的)
+                    this.$nextTick(() => {
+                        lucide.createIcons();
+                    });
                 },
                 openQR() {
                     this.showQR = true;
                 },
                 
-                // 初始化图标
                 init() {
                     this.$nextTick(() => {
                         lucide.createIcons();
                     });
-                    // 监听DOM变化重新渲染图标 (当过滤发生时)
                     this.$watch('activeCategory', () => {
                         setTimeout(() => lucide.createIcons(), 50);
                     });
