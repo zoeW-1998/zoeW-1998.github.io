@@ -2,131 +2,132 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Courses | Zoe English Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: { primary: '#E11D48', secondary: '#FFF1F2' },
-                    boxShadow: { 'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)' }
+                    colors: { primary: '#E11D48', dark: '#0F172A', light: '#F8FAFC' }
                 }
             }
         }
     </script>
     <style>
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .modal-backdrop { background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); }
-        body { -webkit-tap-highlight-color: transparent; }
         [x-cloak] { display: none !important; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid #F1F5F9; }
     </style>
 </head>
 
-<body class="bg-gray-50 text-slate-800 antialiased pb-24" x-data="studioData()" x-cloak>
+<body class="bg-slate-50 text-slate-800 antialiased" x-data="courseData()">
 
-    <header class="bg-white sticky top-0 z-30 border-b border-gray-100 shadow-sm/50 backdrop-blur-md bg-white/95">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-3">
-                <div class="w-9 h-9 bg-gradient-to-br from-primary to-rose-600 rounded-lg flex items-center justify-center text-white font-bold text-sm shadow-md shadow-rose-200">ZEA</div>
-                <h1 class="font-bold text-xl tracking-tight text-gray-900">Zoe English Academy</h1>
+    <header class="fixed w-full top-0 z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 bg-black text-white flex items-center justify-center font-bold text-sm rounded-lg group-hover:bg-primary transition-colors duration-300">ZEA</div>
+                <span class="font-extrabold text-lg tracking-tight text-slate-900">Zoe English Academy</span>
             </a>
-            <div class="flex items-center gap-4">
-                <nav class="hidden md:flex gap-6 text-sm font-medium text-gray-500 mr-4">
-                    <a href="index.html" class="hover:text-primary transition">Home</a>
-                    <a href="#" class="text-primary font-bold">Courses</a>
-                    <a href="about.html" class="hover:text-primary transition">About</a>
+            <div class="flex items-center gap-8">
+                <nav class="hidden md:flex gap-8 text-sm font-semibold text-slate-500">
+                    <a href="index.html" class="hover:text-slate-900 transition-colors">Home</a>
+                    <a href="courses.html" class="text-slate-900 border-b-2 border-slate-900 pb-0.5">Courses</a>
+                    <a href="about.html" class="hover:text-slate-900 transition-colors">About</a>
                 </nav>
-                <button @click="openQR" class="bg-gray-900 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-black transition transform active:scale-95 flex items-center shadow-lg shadow-gray-200">
-                    <i data-lucide="message-circle" class="w-4 h-4 mr-2"></i> 咨询
+                <button @click="openQR" class="bg-slate-900 text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-primary transition-all duration-300 flex items-center gap-2">
+                    <span>Contact</span> <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
                 </button>
             </div>
         </div>
     </header>
 
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-6">
-        <h1 class="text-3xl font-extrabold text-gray-900">Explore Our Courses</h1>
-        <p class="text-gray-500 mt-2">Find the right path to your English success.</p>
+    <section class="pt-32 pb-12 px-6">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight mb-4">Curriculum</h1>
+            <p class="text-slate-500 max-w-2xl">针对不同阶段的语言需求，定制化解决方案。所有课程均包含课前评估与课后反馈。</p>
+        </div>
     </section>
 
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div class="flex items-center justify-between mb-6">
-            <h3 class="font-bold text-xl text-gray-900">Value Packages 课时包</h3>
-            <span class="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">EAL/D 单独定价</span>
-        </div>
-        <div class="flex lg:grid lg:grid-cols-3 gap-4 overflow-x-auto lg:overflow-visible no-scrollbar pb-4 lg:pb-0">
-            <div class="min-w-[260px] lg:w-auto bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex flex-col justify-between">
-                <div>
-                    <div class="flex justify-between items-start">
-                        <span class="text-sm font-bold text-gray-400 uppercase tracking-wide">Standard</span>
-                        <div class="bg-gray-50 p-2 rounded-lg text-gray-500"><i data-lucide="video" class="w-5 h-5"></i></div>
+    <section class="px-6 mb-16">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-3 gap-6">
+                <div class="bg-white p-8 rounded-lg border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Standard Rate</span>
+                        <div class="mt-4 flex items-baseline"><span class="text-4xl font-bold text-slate-900">$55</span><span class="text-slate-500 ml-1">/ hour</span></div>
                     </div>
-                    <div class="text-3xl font-bold mt-4 text-gray-900">$55<span class="text-lg font-normal text-gray-500">/h</span></div>
+                    <ul class="mt-8 space-y-3 text-sm text-slate-600">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-3 text-primary"></i>Flexible Booking</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-3 text-primary"></i>Pay as you go</li>
+                    </ul>
                 </div>
-                <div class="mt-6 pt-6 border-t border-gray-50 text-sm text-gray-600 space-y-2">
-                     <p class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-green-500"></i>灵活线上约课</p>
-                     <p class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-green-500"></i>无预付压力</p>
+                <div class="bg-slate-900 p-8 rounded-lg border border-slate-900 text-white flex flex-col justify-between relative overflow-hidden group">
+                     <div class="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full blur-2xl group-hover:bg-primary/30 transition duration-500"></div>
+                    <div>
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Premium Package</span>
+                            <span class="bg-white text-slate-900 text-[10px] font-bold px-2 py-1 rounded">POPULAR</span>
+                        </div>
+                        <div class="mt-4 flex items-baseline"><span class="text-4xl font-bold text-white">$1500</span><span class="text-slate-400 ml-2 line-through text-sm">$1650</span></div>
+                        <p class="text-sm text-slate-400 mt-2">30 Hours Credit</p>
+                    </div>
+                    <div class="mt-8 border-t border-white/10 pt-6 flex justify-between items-center">
+                        <span class="font-bold text-lg text-primary">$50 / h</span>
+                        <span class="text-xs text-slate-400">Save $150</span>
+                    </div>
                 </div>
-            </div>
-            <div class="min-w-[280px] lg:w-auto bg-gray-900 p-6 rounded-2xl shadow-xl flex flex-col justify-between text-white relative overflow-hidden">
-                <div class="absolute top-0 right-0 bg-yellow-500 text-xs font-bold px-3 py-1.5 rounded-bl-xl text-black">POPULAR</div>
-                <div>
-                    <span class="text-sm font-bold text-gray-400 uppercase tracking-wide">30 Hours Online</span>
-                    <div class="text-4xl font-bold mt-4">$1500</div>
-                    <div class="text-sm text-gray-400 line-through mt-1">$1650 Value</div>
-                </div>
-                <div class="mt-6 pt-6 border-t border-gray-700 flex justify-between items-center">
-                    <span class="text-yellow-400 font-bold text-lg">$50 / h</span>
-                    <span class="bg-white/10 px-2 py-1 rounded text-xs">Save $150</span>
-                </div>
-            </div>
-            <div class="min-w-[280px] lg:w-auto bg-gradient-to-br from-primary to-rose-700 p-6 rounded-2xl shadow-xl flex flex-col justify-between text-white relative overflow-hidden">
-                <div class="absolute top-0 right-0 bg-white/20 backdrop-blur text-xs font-bold px-3 py-1.5 rounded-bl-xl">BEST VALUE</div>
-                <div>
-                    <span class="text-sm font-bold text-rose-100 uppercase tracking-wide">60 Hours Online</span>
-                    <div class="text-4xl font-bold mt-4">$2700</div>
-                    <div class="text-sm text-rose-200 line-through mt-1">$3300 Value</div>
-                </div>
-                <div class="mt-6 pt-6 border-t border-rose-500/50 flex justify-between items-center">
-                    <span class="text-white font-bold text-lg">$45 / h</span>
-                    <span class="bg-white text-primary px-2 py-1 rounded text-xs font-bold">Save $600</span>
+                <div class="bg-white p-8 rounded-lg border border-slate-200 flex flex-col justify-between relative overflow-hidden group hover:border-primary/50 transition duration-300">
+                    <div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Mastery Package</span>
+                        <div class="mt-4 flex items-baseline"><span class="text-4xl font-bold text-slate-900">$2700</span><span class="text-slate-400 ml-2 line-through text-sm">$3300</span></div>
+                        <p class="text-sm text-slate-500 mt-2">60 Hours Credit</p>
+                    </div>
+                     <div class="mt-8 border-t border-slate-100 pt-6 flex justify-between items-center">
+                        <span class="font-bold text-lg text-primary">$45 / h</span>
+                        <span class="text-xs font-bold bg-slate-100 text-slate-600 px-2 py-1 rounded">Save $600</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" id="list">
-        <div class="flex items-center space-x-2 md:space-x-8 border-b border-gray-200 mb-8 overflow-x-auto no-scrollbar">
+    <main class="max-w-7xl mx-auto px-6 pb-24" id="list">
+        <div class="flex flex-wrap gap-2 mb-10 border-b border-slate-200 pb-4">
             <template x-for="cat in categories" :key="cat">
-                <button @click="activeCategory = cat" class="pb-4 px-2 text-sm md:text-base font-medium whitespace-nowrap transition-all relative" :class="activeCategory === cat ? 'text-primary font-bold' : 'text-gray-500 hover:text-gray-800'">
+                <button @click="activeCategory = cat" 
+                    class="px-4 py-2 text-sm font-semibold rounded-md transition-all duration-200"
+                    :class="activeCategory === cat ? 'bg-slate-900 text-white' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'">
                     <span x-text="cat"></span>
-                    <div x-show="activeCategory === cat" class="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-t-full"></div>
                 </button>
             </template>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-12">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <template x-for="course in filteredCourses" :key="course.id">
-                <div @click="openModal(course)" class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 hover:shadow-lg hover:border-rose-100 transition-all cursor-pointer group flex md:flex-col gap-4 h-full">
-                    <div class="relative w-28 h-28 md:w-full md:h-52 flex-shrink-0 rounded-xl overflow-hidden bg-gray-100">
-                        <img :src="course.image" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                        <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition"></div>
-                        <span x-show="course.tag" x-text="course.tag" class="absolute top-3 left-3 bg-white/90 backdrop-blur text-gray-900 text-xs font-bold px-2.5 py-1 rounded-md shadow-sm"></span>
-                        <span class="absolute bottom-3 right-3 bg-black/60 backdrop-blur text-white text-[10px] font-medium px-2 py-1 rounded flex items-center"><i data-lucide="video" class="w-3 h-3 mr-1"></i> Online</span>
-                    </div>
-                    <div class="flex-1 flex flex-col justify-between">
-                        <div>
-                            <h3 class="font-bold text-gray-900 text-lg leading-snug group-hover:text-primary transition-colors" x-text="course.title"></h3>
-                            <p class="text-sm text-gray-500 mt-2 line-clamp-2 leading-relaxed" x-text="course.shortDesc"></p>
+                <div @click="openModal(course)" class="group cursor-pointer bg-white rounded-lg border border-slate-200 overflow-hidden hover:shadow-xl hover:shadow-slate-200/50 hover:border-slate-300 transition-all duration-300 flex flex-col h-full">
+                    <div class="h-48 overflow-hidden relative bg-slate-100">
+                        <img :src="course.image" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0">
+                        <div class="absolute top-4 left-4 flex gap-2">
+                             <span x-show="course.tag" x-text="course.tag" class="bg-white/90 backdrop-blur text-slate-900 text-[10px] uppercase font-bold px-2 py-1 rounded shadow-sm"></span>
                         </div>
-                        <div class="mt-4 flex items-center justify-between pt-4 border-t border-gray-50 md:border-none md:pt-2">
-                            <div class="text-gray-900 font-bold"><span x-text="course.priceType === 'eal' ? '$65' : '$55'" class="text-xl"></span><span class="text-xs font-normal text-gray-400">/h 起</span></div>
-                            <span class="text-xs font-medium text-primary flex items-center group-hover:translate-x-1 transition">Details <i data-lucide="arrow-right" class="w-3 h-3 ml-1"></i></span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-lg text-slate-900 leading-tight group-hover:text-primary transition-colors" x-text="course.title"></h3>
+                            </div>
+                            <p class="text-sm text-slate-500 line-clamp-2 mt-2" x-text="course.shortDesc"></p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">View Details</span>
+                            <div class="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-900 group-hover:bg-slate-900 group-hover:text-white transition-colors">
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -134,54 +135,77 @@
         </div>
     </main>
 
-    <div x-show="showModal" style="display: none;" class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
-        <div @click="showModal = false" x-show="showModal" x-transition.opacity class="absolute inset-0 modal-backdrop"></div>
-        <div x-show="showModal" x-transition:enter="transition transform ease-out duration-300" x-transition:enter-start="translate-y-full sm:translate-y-10 sm:opacity-0" x-transition:enter-end="translate-y-0 sm:translate-y-0 sm:opacity-100" x-transition:leave="transition transform ease-in duration-200" x-transition:leave-start="translate-y-0 sm:opacity-100" x-transition:leave-end="translate-y-full sm:translate-y-10 sm:opacity-0" class="relative bg-white w-full max-w-lg sm:max-w-2xl rounded-t-3xl sm:rounded-2xl shadow-2xl max-h-[85vh] sm:max-h-[90vh] overflow-y-auto flex flex-col">
-            <div class="sticky top-0 bg-white/95 backdrop-blur z-10 flex justify-between items-center p-4 sm:p-6 border-b border-gray-100">
-                <h2 class="text-lg font-bold text-gray-900 line-clamp-1 mr-4" x-text="selectedCourse.title"></h2>
-                <button @click="showModal = false" class="bg-gray-100 hover:bg-gray-200 p-2 rounded-full transition text-gray-500"><i data-lucide="x" class="w-5 h-5"></i></button>
-            </div>
-            <div class="p-6 sm:p-8 overflow-y-auto">
-                <div class="flex flex-wrap items-center gap-2 mb-6">
-                    <span x-text="selectedCourse.category" class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs font-medium"></span>
-                    <span x-show="selectedCourse.priceType === 'eal'" class="bg-orange-50 text-orange-600 border border-orange-100 px-3 py-1 rounded-full text-xs font-bold">VIP 课程</span>
+    <div x-show="showModal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6" x-cloak>
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" @click="showModal = false"></div>
+        
+        <div class="bg-white w-full max-w-2xl rounded-lg shadow-2xl relative z-10 flex flex-col max-h-[90vh]">
+            <div class="flex justify-between items-center p-6 border-b border-slate-100">
+                <div>
+                    <span x-text="selectedCourse.category" class="text-xs font-bold text-slate-400 uppercase tracking-wider"></span>
+                    <h2 class="text-xl font-bold text-slate-900 mt-1" x-text="selectedCourse.title"></h2>
                 </div>
-                <div class="flex items-center space-x-6 text-sm font-medium text-gray-600 mb-8 bg-gray-50 p-4 rounded-xl">
-                    <span class="flex items-center"><i data-lucide="clock" class="w-5 h-5 mr-2 text-primary"></i> 60 min / Lesson</span>
-                    <span class="flex items-center"><i data-lucide="video" class="w-5 h-5 mr-2 text-primary"></i> Online Live (VooV)</span>
-                </div>
-                <div class="mb-8"><h4 class="font-bold text-gray-900 mb-3 flex items-center text-sm uppercase tracking-wide"><i data-lucide="users" class="w-4 h-4 mr-2 text-primary"></i>Target Audience</h4><div class="text-sm text-gray-700 leading-relaxed"><p x-text="selectedCourse.audience"></p></div></div>
-                <div class="mb-8"><h4 class="font-bold text-gray-900 mb-3 flex items-center text-sm uppercase tracking-wide"><i data-lucide="list-checks" class="w-4 h-4 mr-2 text-primary"></i>Curriculum</h4><ul class="grid sm:grid-cols-2 gap-3"><template x-for="item in selectedCourse.details" :key="item"><li class="flex items-start text-sm text-gray-600 bg-gray-50 p-3 rounded-lg border border-gray-100"><i data-lucide="check-circle-2" class="w-4 h-4 mr-2 text-green-500 flex-shrink-0 mt-0.5"></i><span x-text="item"></span></li></template></ul></div>
+                <button @click="showModal = false" class="bg-slate-50 hover:bg-slate-100 p-2 rounded-lg text-slate-500 transition"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
-            <div class="p-4 sm:p-6 bg-white border-t border-gray-100 sm:flex sm:items-center sm:justify-between sticky bottom-0 z-10 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
-                <div class="mb-4 sm:mb-0"><div class="text-xs text-gray-400 uppercase font-bold tracking-wider">Online Rate</div><div class="flex items-baseline gap-1"><span class="text-2xl font-bold text-primary" x-text="selectedCourse.priceType === 'eal' ? '$65' : '$55'"></span><span class="text-sm text-gray-500">/ hour</span></div></div>
-                <button @click="showModal = false; openQR()" class="w-full sm:w-auto bg-gray-900 hover:bg-black text-white px-8 py-3.5 rounded-xl font-bold text-sm shadow-lg shadow-gray-200 transition transform hover:-translate-y-0.5 flex items-center justify-center">Book Online Trial <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i></button>
+
+            <div class="p-8 overflow-y-auto">
+                <div class="grid sm:grid-cols-2 gap-8 mb-8">
+                     <div>
+                        <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3">Suitable For</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed" x-text="selectedCourse.audience"></p>
+                     </div>
+                     <div>
+                        <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3">Format</h4>
+                        <div class="space-y-2">
+                             <div class="flex items-center text-sm text-slate-600"><i data-lucide="monitor" class="w-4 h-4 mr-2"></i> VooV / Tencent Meeting</div>
+                             <div class="flex items-center text-sm text-slate-600"><i data-lucide="clock" class="w-4 h-4 mr-2"></i> 60 Mins / Session</div>
+                        </div>
+                     </div>
+                </div>
+
+                <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-4">Course Highlights</h4>
+                <ul class="space-y-3">
+                    <template x-for="item in selectedCourse.details" :key="item">
+                        <li class="flex items-start text-sm text-slate-600 p-3 bg-slate-50 rounded border border-slate-100">
+                            <i data-lucide="check" class="w-4 h-4 mr-3 text-primary mt-0.5"></i>
+                            <span x-text="item"></span>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+
+            <div class="p-6 border-t border-slate-100 flex items-center justify-between bg-slate-50 rounded-b-lg">
+                <div>
+                    <div class="text-[10px] text-slate-400 uppercase font-bold">Starting Rate</div>
+                    <div class="text-xl font-bold text-slate-900" x-text="selectedCourse.priceType === 'eal' ? '$65' : '$55'"><span class="text-xs font-normal text-slate-500 ml-1">/ h</span></div>
+                </div>
+                <button @click="showModal = false; openQR()" class="bg-slate-900 hover:bg-primary text-white px-8 py-3 rounded-lg font-bold text-sm transition-all duration-300 shadow-lg">
+                    Book Trial Class
+                </button>
             </div>
         </div>
     </div>
 
-    <div x-show="showQR" style="display: none;" class="fixed inset-0 z-[60] flex items-center justify-center modal-mask p-4">
-        <div @click="showQR = false" class="absolute inset-0 modal-backdrop"></div>
-        <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center relative z-10 shadow-2xl transform transition-all">
-            <button @click="showQR = false" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 bg-gray-50 p-1 rounded-full"><i data-lucide="x" class="w-5 h-5"></i></button>
-            <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4"><i data-lucide="message-circle" class="w-6 h-6"></i></div>
-            <h2 class="text-xl font-bold mb-2">Connect with Zoe</h2>
-            <div class="bg-white p-2 rounded-xl border-2 border-dashed border-gray-200 inline-block mb-4"><img src="wechat-qr.png" alt="WeChat QR" class="w-48 h-48 object-cover rounded-lg"></div>
-            <div class="mt-2 bg-gray-50 py-3 px-4 rounded-lg flex items-center justify-between"><span class="text-xs text-gray-500">WeChat ID</span><span class="text-sm font-bold text-gray-900 select-all">yy1043057431</span></div>
+    <div x-show="showQR" class="fixed inset-0 z-[100] flex items-center justify-center px-4" x-cloak>
+        <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm" @click="showQR = false"></div>
+        <div class="bg-white p-8 w-full max-w-sm rounded-lg shadow-2xl relative z-10 text-center">
+            <button @click="showQR = false" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+            <h3 class="text-xl font-bold text-slate-900 mb-2">Consultation</h3>
+            <div class="bg-slate-50 p-2 border border-slate-200 inline-block rounded-lg mb-6 mt-4">
+                 <img src="wechat-qr.png" alt="WeChat" class="w-48 h-48 object-cover">
+            </div>
+            <div class="flex items-center justify-between bg-slate-50 px-4 py-3 rounded border border-slate-100">
+                <span class="text-xs font-bold text-slate-500 uppercase">WeChat ID</span>
+                <span class="text-sm font-bold text-slate-900 select-all">yy1043057431</span>
+            </div>
         </div>
     </div>
-
-    <footer class="bg-white border-t border-gray-100 py-12 text-center text-sm text-gray-400">
-        <p>&copy; 2024 Zoe English Academy. Melbourne, Australia.</p>
-    </footer>
 
     <script>
-        function studioData() {
+        function courseData() {
             return {
                 activeCategory: 'All',
                 categories: ['All', 'Exam Prep', 'General English', 'Academic', 'School Prep'],
                 showModal: false, showQR: false, selectedCourse: {},
-                // 核心课程数据 (保持不变)
                 courses: [
                     { id: 1, title: 'IELTS 雅思 A/G 类', category: 'Exam Prep', tag: 'Bestseller', priceType: 'standard', image: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=600', shortDesc: '针对各类签证 (485/500/189) 语言要求定制。线上高效提分。', audience: '针对澳洲各类签证如485，500，189等，需要不同语言要求学生。', details: ['阅读听力：讲各类题型技巧，上机练题，课后作业', '写作：练习各类话题，老师进行精细批改', '口语：全英辅导，覆盖澳洲口语题库，教授地道表达'] },
                     { id: 2, title: '成人英语 (0基础/薄弱)', category: 'General English', tag: 'Foundation', priceType: 'standard', image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=600', shortDesc: '从发音拼读开始，4-5个月建立基本交流能力。', audience: '0基础或基础薄弱的成人学员。建议至少制定 4-5 个月学习计划。', details: ['自然拼读与国际音标纠正', '基础核心词汇构建', '常用生活句型与语法入门', '场景化口语模拟 (购物、看病、出行)'] },
