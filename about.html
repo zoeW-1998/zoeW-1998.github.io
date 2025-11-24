@@ -7,160 +7,125 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: { primary: '#E11D48', dark: '#0F172A', light: '#F8FAFC' }
+                    fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] },
+                    colors: { dark: '#18181B', accent: '#E11D48', paper: '#FAFAFA' }
                 }
             }
         }
     </script>
     <style>
         [x-cloak] { display: none !important; }
-        .glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid #F1F5F9; }
+        body { background-color: #FAFAFA; color: #18181B; }
     </style>
 </head>
 
-<body class="bg-white text-slate-800 antialiased" x-data="{ showQR: false }">
+<body class="antialiased" x-data="{ showQR: false }">
 
-    <header class="fixed w-full top-0 z-50 glass-nav">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 bg-black text-white flex items-center justify-center font-bold text-sm rounded-lg group-hover:bg-primary transition-colors duration-300">ZEA</div>
-                <span class="font-extrabold text-lg tracking-tight text-slate-900">Zoe English Academy</span>
+    <header class="fixed top-0 w-full z-40 bg-paper/80 backdrop-blur-md border-b border-zinc-200/50">
+        <div class="max-w-screen-xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 group">
+                <div class="w-8 h-8 bg-dark text-white flex items-center justify-center font-serif font-bold rounded-md group-hover:bg-accent transition-colors">Z</div>
+                <span class="font-semibold tracking-tight text-lg">ZEA.</span>
             </a>
-            <div class="flex items-center gap-8">
-                <nav class="hidden md:flex gap-8 text-sm font-semibold text-slate-500">
-                    <a href="index.html" class="hover:text-slate-900 transition-colors">Home</a>
-                    <a href="courses.html" class="hover:text-slate-900 transition-colors">Courses</a>
-                    <a href="about.html" class="text-slate-900 border-b-2 border-slate-900 pb-0.5">About</a>
-                </nav>
-                <button @click="showQR = true" class="bg-slate-900 text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-primary transition-all duration-300 flex items-center gap-2">
-                    <span>Contact</span> <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
-                </button>
-            </div>
+            <nav class="hidden md:flex gap-8 text-sm font-medium text-zinc-500">
+                <a href="index.html" class="hover:text-dark transition-colors">首页</a>
+                <a href="courses.html" class="hover:text-dark transition-colors">课程体系</a>
+                <a href="about.html" class="text-dark">关于我们</a>
+            </nav>
+            <button @click="showQR = true" class="bg-dark text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-accent transition-all flex items-center gap-2">
+                预约咨询
+            </button>
         </div>
     </header>
 
-    <section class="pt-32 pb-24 px-6">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-start">
-            <div>
-                <h1 class="text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight mb-8">
-                    Bridging the Gap to <br/>Australian Education.
-                </h1>
-                <div class="space-y-6 text-slate-500 text-lg leading-relaxed font-light">
-                    <p>
-                        <strong class="text-slate-900 font-semibold">Zoe English Academy</strong> 成立于墨尔本。我们的使命很简单：打破地域限制，通过高质量的线上直播课程，将最纯正的澳洲英语教学带给每一位有志于留学、移民或提升自我的学生。
-                    </p>
-                    <p>
-                        我们不相信“速成”的奇迹，但我们相信正确的方法可以倍速缩短学习路径。在这里，没有照本宣科，只有针对你痛点的精准打击。
-                    </p>
-                </div>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&q=80&w=800" class="rounded-lg object-cover h-64 w-full grayscale hover:grayscale-0 transition duration-500">
-                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=800" class="rounded-lg object-cover h-64 w-full translate-y-8 grayscale hover:grayscale-0 transition duration-500">
-            </div>
+    <section class="pt-40 pb-20 px-6">
+        <div class="max-w-3xl mx-auto text-center">
+            <h1 class="font-serif text-5xl md:text-6xl mb-8 text-dark">Not just English.<br><span class="italic text-zinc-400">It's your future.</span></h1>
+            <div class="w-12 h-0.5 bg-accent mx-auto mb-8"></div>
+            <p class="text-lg text-zinc-600 leading-loose font-light">
+                Zoe English Academy 成立于墨尔本。我们的使命很简单：打破地域限制，通过高质量的线上直播课程，将最纯正的澳洲英语教学带给每一位有志于留学、移民或提升自我的学生。
+            </p>
         </div>
     </section>
 
-    <section class="bg-slate-50 border-y border-slate-200 py-24 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="mb-16">
-                <h2 class="text-3xl font-bold text-slate-900 tracking-tight">Our Faculty</h2>
-                <p class="text-slate-500 mt-2">Elite tutors from top universities.</p>
+    <section class="w-full h-[400px] md:h-[500px] bg-fixed bg-center bg-cover grayscale contrast-125" style="background-image: url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&q=80&w=1600');">
+    </section>
+
+    <section class="py-24 px-6 max-w-screen-xl mx-auto">
+        <div class="grid md:grid-cols-3 gap-12">
+            <div class="text-center group">
+                <div class="w-48 h-48 mx-auto rounded-full overflow-hidden mb-6 border border-zinc-200 grayscale group-hover:grayscale-0 transition duration-700">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Zoe" class="w-full h-full object-cover">
+                </div>
+                <h3 class="font-serif text-2xl mb-1">Zoe</h3>
+                <p class="text-xs font-bold tracking-widest text-accent uppercase mb-4">Founder & Principal</p>
+                <p class="text-sm text-zinc-500 leading-relaxed max-w-xs mx-auto">专注雅思/PTE高分冲刺。拥有多年澳洲教学经验，擅长发现学生痛点并精准突破。</p>
             </div>
             
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white p-8 rounded-lg border border-slate-200 hover:border-slate-300 transition group">
-                    <div class="flex items-center gap-4 mb-6">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Zoe" class="w-16 h-16 rounded-full bg-slate-100 p-1">
-                        <div>
-                            <h3 class="font-bold text-lg text-slate-900">Zoe</h3>
-                            <p class="text-xs font-bold text-primary uppercase tracking-wide">Founder</p>
-                        </div>
-                    </div>
-                    <p class="text-slate-500 text-sm leading-relaxed">专注雅思/PTE高分冲刺及成人零基础教学。拥有多年澳洲教学经验，擅长发现学生痛点并精准突破。</p>
+            <div class="text-center group">
+                <div class="w-48 h-48 mx-auto rounded-full overflow-hidden mb-6 border border-zinc-200 grayscale group-hover:grayscale-0 transition duration-700">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" class="w-full h-full object-cover">
                 </div>
-                <div class="bg-white p-8 rounded-lg border border-slate-200 hover:border-slate-300 transition group">
-                     <div class="flex items-center gap-4 mb-6">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" class="w-16 h-16 rounded-full bg-slate-100 p-1">
-                        <div>
-                            <h3 class="font-bold text-lg text-slate-900">Alex</h3>
-                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wide">EAL Specialist</p>
-                        </div>
-                    </div>
-                    <p class="text-slate-500 text-sm leading-relaxed">墨尔本大学教育硕士。专攻 VCE/HSC 学术英语写作，帮助中学生攻克名著阅读与语言分析难关。</p>
+                <h3 class="font-serif text-2xl mb-1">Alex</h3>
+                <p class="text-xs font-bold tracking-widest text-accent uppercase mb-4">EAL/D Specialist</p>
+                <p class="text-sm text-zinc-500 leading-relaxed max-w-xs mx-auto">墨尔本大学教育硕士。专攻 VCE/HSC 学术英语写作，攻克名著阅读难关。</p>
+            </div>
+
+            <div class="text-center group">
+                <div class="w-48 h-48 mx-auto rounded-full overflow-hidden mb-6 border border-zinc-200 grayscale group-hover:grayscale-0 transition duration-700">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" class="w-full h-full object-cover">
                 </div>
-                <div class="bg-white p-8 rounded-lg border border-slate-200 hover:border-slate-300 transition group">
-                     <div class="flex items-center gap-4 mb-6">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" class="w-16 h-16 rounded-full bg-slate-100 p-1">
-                        <div>
-                            <h3 class="font-bold text-lg text-slate-900">Sarah</h3>
-                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wide">Native Coach</p>
-                        </div>
+                <h3 class="font-serif text-2xl mb-1">Sarah</h3>
+                <p class="text-xs font-bold tracking-widest text-accent uppercase mb-4">Native Coach</p>
+                <p class="text-sm text-zinc-500 leading-relaxed max-w-xs mx-auto">Local ABC，双语教学。纯正澳式口音，教授最地道的澳洲职场与生活表达。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-zinc-100 px-6">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="font-serif text-3xl text-center mb-16">How it works</h2>
+            <div class="relative border-l border-zinc-300 ml-6 md:ml-0 space-y-12">
+                <div class="md:flex items-center group pl-12 relative">
+                    <span class="absolute -left-1.5 top-2 w-3 h-3 bg-white border-2 border-dark rounded-full"></span>
+                    <div class="md:w-32 text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1 md:mb-0">Step 01</div>
+                    <div>
+                        <h3 class="font-bold text-lg">咨询与评估</h3>
+                        <p class="text-sm text-zinc-500 mt-1">添加微信客服，沟通学习目标与当前水平。</p>
                     </div>
-                    <p class="text-slate-500 text-sm leading-relaxed">Local ABC，双语教学。纯正澳式口音，专注于纠正中式发音，教授最地道的澳洲职场与生活表达。</p>
+                </div>
+                <div class="md:flex items-center group pl-12 relative">
+                    <span class="absolute -left-1.5 top-2 w-3 h-3 bg-white border-2 border-dark rounded-full"></span>
+                    <div class="md:w-32 text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1 md:mb-0">Step 02</div>
+                    <div>
+                        <h3 class="font-bold text-lg">制定计划</h3>
+                        <p class="text-sm text-zinc-500 mt-1">预约试听课，为您定制专属学习规划。</p>
+                    </div>
+                </div>
+                <div class="md:flex items-center group pl-12 relative">
+                    <span class="absolute -left-1.5 top-2 w-3 h-3 bg-white border-2 border-dark rounded-full"></span>
+                    <div class="md:w-32 text-xs font-bold text-zinc-400 uppercase tracking-widest mb-1 md:mb-0">Step 03</div>
+                    <div>
+                        <h3 class="font-bold text-lg">直播授课</h3>
+                        <p class="text-sm text-zinc-500 mt-1">使用腾讯会议/VooV 进行实时互动教学。</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-24 px-6">
-        <div class="max-w-7xl mx-auto">
-             <div class="grid md:grid-cols-4 gap-8">
-                <div class="border-t-2 border-slate-900 pt-6">
-                    <span class="text-4xl font-extrabold text-slate-200">01</span>
-                    <h3 class="font-bold text-slate-900 mt-4 text-lg">Consultation</h3>
-                    <p class="text-sm text-slate-500 mt-2">添加微信客服，沟通学习目标与当前水平。</p>
-                </div>
-                <div class="border-t-2 border-slate-200 pt-6">
-                    <span class="text-4xl font-extrabold text-slate-200">02</span>
-                    <h3 class="font-bold text-slate-900 mt-4 text-lg">Planning</h3>
-                    <p class="text-sm text-slate-500 mt-2">预约试听课，为您定制专属学习规划。</p>
-                </div>
-                <div class="border-t-2 border-slate-200 pt-6">
-                    <span class="text-4xl font-extrabold text-slate-200">03</span>
-                    <h3 class="font-bold text-slate-900 mt-4 text-lg">Learning</h3>
-                    <p class="text-sm text-slate-500 mt-2">使用 VooV 进行一对一或小班直播教学。</p>
-                </div>
-                <div class="border-t-2 border-slate-200 pt-6">
-                    <span class="text-4xl font-extrabold text-slate-200">04</span>
-                    <h3 class="font-bold text-slate-900 mt-4 text-lg">Result</h3>
-                    <p class="text-sm text-slate-500 mt-2">课后反馈与作业批改，助您达成目标。</p>
-                </div>
-             </div>
-        </div>
-    </section>
-
-    <footer class="bg-slate-900 text-white py-16">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <h2 class="text-3xl font-bold mb-6">Ready to start?</h2>
-            <button @click="showQR = true" class="bg-primary hover:bg-rose-600 px-8 py-3 rounded-lg font-bold transition">Book Consultation</button>
-            <p class="text-slate-500 text-xs mt-12">&copy; 2024 Zoe English Academy. Melbourne.</p>
-        </div>
+    <footer class="py-12 px-6 border-t border-zinc-200 bg-white text-center">
+        <div class="text-sm text-zinc-400">© 2024 Zoe English Academy. Melbourne.</div>
     </footer>
 
-    <div x-show="showQR" class="fixed inset-0 z-[100] flex items-center justify-center px-4" x-cloak>
-        <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm" @click="showQR = false"></div>
-        <div class="bg-white p-8 w-full max-w-sm rounded-lg shadow-2xl relative z-10 text-center">
-            <button @click="showQR = false" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
-            <h3 class="text-xl font-bold text-slate-900 mb-2">Connect with ZEA</h3>
-            <div class="bg-slate-50 p-2 border border-slate-200 inline-block rounded-lg mb-6 mt-4">
-                 <img src="wechat-qr.png" alt="WeChat" class="w-48 h-48 object-cover">
-            </div>
-            <div class="flex items-center justify-between bg-slate-50 px-4 py-3 rounded border border-slate-100">
-                <span class="text-xs font-bold text-slate-500 uppercase">WeChat ID</span>
-                <span class="text-sm font-bold text-slate-900 select-all">yy1043057431</span>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        window.addEventListener('load', () => lucide.createIcons());
-    </script>
-</body>
-</html>
+    <div x-show="showQR" style="display: none;" class="fixed inset-0 z-[60] flex items-center justify-center p-4">
+        <div @click="showQR = false" class="absolute inset-0 bg-zinc-900/40 backdrop-blur-sm"></div>
+        <div class="bg-white p-8 rounded-2xl shadow-2xl relative z-10 max-w-sm w-full text-center">
+            <button @click="showQR = false" class="absolute top-4 right-4 text-zinc-400 hover:text-dark"><i data-lucide="x" class="w-5 h-5"></i></button>
+            <h3 class="font-serif text-2xl mb-6">Connect with Zoe</h3>
+            <div class="bg-zinc-50 p-4 rounded-xl border border-zinc-100 inline-block mb-4"><img src="wechat-qr.png" alt="QR" class="w
